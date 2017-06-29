@@ -1,11 +1,11 @@
 package Android;
 
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.URLConnection;
 import java.net.URL;
-
 /**
  * Created by luceromoreno on 6/2/17.
  */
@@ -15,16 +15,49 @@ public class Connect {
     public static void main(String[] args) throws IOException {
 
 
-
         URL web = new URL("https://www.byui.edu");
         URLConnection connection = web.openConnection();
-        BufferedReader read = new BufferedReader(new InputStreamReader(connection.getInputStream()));
+        BufferedReader read = new BufferedReader
+                (new InputStreamReader(connection.getInputStream()));
         String httpurl = read.readLine();
         while (httpurl != null) {
             System.out.println(httpurl);
             httpurl = read.readLine();
         }
 
+// Bad path: this is not a valid URL
+        try {
+            URL lds = new URL("https://www.lds.com/");
+            URLConnection connectionlds = lds.openConnection();
+            BufferedReader reader2 = new BufferedReader
+                    (new InputStreamReader(connectionlds.getInputStream()));
+        } catch (Exception e) {
+            System.out.println("Web address does not exist");
+        }
+
+        //Bad path: website is set as null
+        try {
+            URL nullweb = new URL(null);
+            URLConnection connectionnull = nullweb.openConnection();
+            BufferedReader readernull = new BufferedReader
+                    (new InputStreamReader(connectionnull.getInputStream()));
+            String string4 = readernull.readLine();
+            System.out.println(string4);
+
+        } catch (Exception e){
+            System.out.println("This is a null website");
+        }
+
+        //Bad path: the extension does not work
+        try {
+            URL bad = new URL("http://www.boniver.org/something/");
+            URLConnection connectionbad = bad.openConnection();
+            BufferedReader reader4 = new BufferedReader
+                    (new InputStreamReader(connectionbad.getInputStream()));
+        } catch (Exception e){
+            System.out.println("Bad extension");
+        }
 
     }
+
 }
